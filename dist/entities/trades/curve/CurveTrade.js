@@ -231,13 +231,15 @@ class CurveTrade extends trade_1.Trade {
             // Compile all the output
             // Using Multicall contract
             const estimatedAmountOutPerPool = yield Promise.all(routablePools.map((pool) => tslib_1.__awaiter(this, void 0, void 0, function* () {
+                // Initial values
+                let estimatedAmountOut = bignumber_1.BigNumber.from(0);
                 const poolContract = new contracts_1.Contract(pool.address, pool.abi, provider);
                 // Map token address to index
                 const tokenInIndex = (0, utils_2.getTokenIndex)(pool, tokenIn.address);
                 const tokenOutIndex = (0, utils_2.getTokenIndex)(pool, tokenOut.address);
                 // Skip pool that return -1
                 if (tokenInIndex < 0 || tokenOutIndex < 0) {
-                    return bignumber_1.BigNumber.from(0);
+                    throw new Error(`Curve: pool does not have one of tokens: ${tokenIn.symbol}, ${tokenOut.symbol}`);
                 }
                 // Get expected output from the pool
                 // Use underylying signature if the pool is a meta pool
@@ -251,9 +253,13 @@ class CurveTrade extends trade_1.Trade {
                     dyMethodParams,
                 });
                 try {
-                    const dyOutput = (yield poolContract[dyMethodSignature](...dyMethodParams));
+                    estimatedAmountOut = (yield poolContract[dyMethodSignature](...dyMethodParams));
                     // Return the call bytes
-                    return dyOutput;
+                    return {
+                        pool,
+                        estimatedAmountOut,
+                        poolContract
+                    };
                 }
                 catch (error) {
                     console.error(`CurveTrade error: failed to fetch estimated out from `, {
@@ -262,24 +268,22 @@ class CurveTrade extends trade_1.Trade {
                         dyMethodParams,
                         error,
                     });
-                    return bignumber_1.BigNumber.from(0);
                 }
+                return {
+                    pool,
+                    estimatedAmountOut,
+                    poolContract
+                };
             })));
-            if (estimatedAmountOutPerPool.length === 0) {
-                throw new Error('CurveTrade: not pools found');
-            }
-            // Append back the pool list
-            // Using the index
-            const poolWithEstimatedAmountOut = estimatedAmountOutPerPool.map((estimatedAmountOut, index) => ({
-                estimatedAmountOut,
-                pool: routablePools[index],
-            }));
             // Sort the pool by best output
-            const poolWithEstimatedAmountOutSorted = poolWithEstimatedAmountOut.sort((poolA, poolB) => poolA.estimatedAmountOut.gt(poolB.estimatedAmountOut)
+            const poolWithEstimatedAmountOutSorted = estimatedAmountOutPerPool.filter(pool => pool.estimatedAmountOut.gt(0)).sort((poolA, poolB) => poolA.estimatedAmountOut.gt(poolB.estimatedAmountOut)
                 ? -1
                 : poolA.estimatedAmountOut.eq(poolB.estimatedAmountOut)
                     ? 0
                     : 1);
+            if (estimatedAmountOutPerPool.length === 0) {
+                throw new Error('CurveTrade: not pools found');
+            }
             // Select the best (first) pool
             // among the sorted pools
             const { pool, estimatedAmountOut } = poolWithEstimatedAmountOutSorted[0];
