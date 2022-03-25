@@ -230,9 +230,7 @@ class CurveTrade extends trade_1.Trade {
             // The final step
             // Compile all the output
             // Using Multicall contract
-            const estimatedAmountOutPerPool = yield Promise.all(routablePools.map((pool) => tslib_1.__awaiter(this, void 0, void 0, function* () {
-                // Initial values
-                let estimatedAmountOut = bignumber_1.BigNumber.from(0);
+            const quoteFromPoolList = yield Promise.all(routablePools.map((pool) => tslib_1.__awaiter(this, void 0, void 0, function* () {
                 const poolContract = new contracts_1.Contract(pool.address, pool.abi, provider);
                 // Map token address to index
                 const tokenInIndex = (0, utils_2.getTokenIndex)(pool, tokenIn.address);
@@ -253,12 +251,12 @@ class CurveTrade extends trade_1.Trade {
                     dyMethodParams,
                 });
                 try {
-                    estimatedAmountOut = (yield poolContract[dyMethodSignature](...dyMethodParams));
+                    const estimatedAmountOut = (yield poolContract[dyMethodSignature](...dyMethodParams));
                     // Return the call bytes
                     return {
                         pool,
                         estimatedAmountOut,
-                        poolContract
+                        poolContract,
                     };
                 }
                 catch (error) {
@@ -268,27 +266,31 @@ class CurveTrade extends trade_1.Trade {
                         dyMethodParams,
                         error,
                     });
+                    return {
+                        pool,
+                        estimatedAmountOut: bignumber_1.BigNumber.from(0),
+                        poolContract,
+                        error,
+                    };
                 }
-                return {
-                    pool,
-                    estimatedAmountOut,
-                    poolContract
-                };
             })));
+            console.log({ quoteFromPoolList });
             // Sort the pool by best output
-            const poolWithEstimatedAmountOutSorted = estimatedAmountOutPerPool.filter(pool => pool.estimatedAmountOut.gt(0)).sort((poolA, poolB) => poolA.estimatedAmountOut.gt(poolB.estimatedAmountOut)
+            const estimatedAmountOutPerPoolSorted = quoteFromPoolList
+                .filter((pool) => {
+                return pool.estimatedAmountOut.gt(0) && pool.error == undefined;
+            })
+                .sort((poolA, poolB) => poolA.estimatedAmountOut.gt(poolB.estimatedAmountOut)
                 ? -1
                 : poolA.estimatedAmountOut.eq(poolB.estimatedAmountOut)
                     ? 0
                     : 1);
-            if (estimatedAmountOutPerPool.length === 0) {
-                throw new Error('CurveTrade: not pools found');
+            if (estimatedAmountOutPerPoolSorted.length === 0) {
+                throw new Error('CurveTrade: zero pools returned an quote');
             }
             // Select the best (first) pool
             // among the sorted pools
-            const { pool, estimatedAmountOut } = poolWithEstimatedAmountOutSorted[0];
-            // Construct the contrac call
-            const poolContract = new contracts_1.Contract(pool.address, pool.abi, provider);
+            const { pool, estimatedAmountOut, poolContract } = estimatedAmountOutPerPoolSorted[0];
             // Try to fetch the fee from the contract the newest
             // If the call fails, the fee defaults back to 4bps
             try {

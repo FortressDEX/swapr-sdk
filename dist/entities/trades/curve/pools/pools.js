@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CURVE_POOLS = exports.POOLS_MAINNET = exports.POOLS_ARBITRUM_ONE = exports.POOLS_XDAI = void 0;
 const constants_1 = require("../../../../constants");
 const abi_1 = require("../abi");
+const common_1 = require("../abi/common");
 const tokens_1 = require("../tokens");
 /**
  * xDAI pools
@@ -407,7 +408,13 @@ exports.POOLS_MAINNET = [
     {
         id: 'steth',
         name: 'steth',
-        abi: abi_1.CURVE_ETHXERC20_256_ABI,
+        abi: [
+            common_1.poolMethods['view']['fee'],
+            common_1.poolMethods['payable']['exchange(uint256,uint256,uint256,uint256)'],
+            common_1.poolMethods['payable']['exchange(uint256,uint256,uint256,uint256,bool)'],
+            common_1.poolMethods['payable']['exchange_underlying(uint256,uint256,uint256,uint256)'],
+            common_1.poolMethods['view']['get_dy(int128,int128,uint256)'],
+        ],
         tokens: [tokens_1.TOKENS_MAINNET.eth, tokens_1.TOKENS_MAINNET.steth],
         address: '0xDC24316b9AE028F1497c275EB9192a3Ea0f67022',
         allowsTradingETH: true,
