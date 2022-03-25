@@ -33,11 +33,11 @@ import {
   CurveTradeBestTradeExactInParams,
 } from './types'
 
-
 interface QuoteFromPool {
-  estimatedAmountOut: BigNumber,
+  estimatedAmountOut: BigNumber
   poolContract: Contract
   pool: CurvePool
+  error?: Error
 }
 
 /**
@@ -300,10 +300,8 @@ export class CurveTrade extends Trade {
     // The final step
     // Compile all the output
     // Using Multicall contract
-    const estimatedAmountOutPerPool: QuoteFromPool[] = await Promise.all(
+    const quoteFromPoolList: QuoteFromPool[] = await Promise.all(
       routablePools.map(async (pool) => {
-        // Initial values
-        let estimatedAmountOut = BigNumber.from(0);
         const poolContract = new Contract(pool.address, pool.abi as any, provider)
         // Map token address to index
         const tokenInIndex = getTokenIndex(pool, tokenIn.address)
@@ -311,7 +309,7 @@ export class CurveTrade extends Trade {
 
         // Skip pool that return -1
         if (tokenInIndex < 0 || tokenOutIndex < 0) {
-          throw new Error(`Curve: pool does not have one of tokens: ${tokenIn.symbol}, ${tokenOut.symbol}`);
+          throw new Error(`Curve: pool does not have one of tokens: ${tokenIn.symbol}, ${tokenOut.symbol}`)
         }
 
         // Get expected output from the pool
@@ -329,12 +327,12 @@ export class CurveTrade extends Trade {
         })
 
         try {
-          estimatedAmountOut = (await poolContract[dyMethodSignature](...dyMethodParams)) as BigNumber
+          const estimatedAmountOut = (await poolContract[dyMethodSignature](...dyMethodParams)) as BigNumber
           // Return the call bytes
           return {
             pool,
             estimatedAmountOut,
-            poolContract
+            poolContract,
           }
         } catch (error) {
           console.error(`CurveTrade error: failed to fetch estimated out from `, {
@@ -343,29 +341,33 @@ export class CurveTrade extends Trade {
             dyMethodParams,
             error,
           })
+          return {
+            pool,
+            estimatedAmountOut: BigNumber.from(0),
+            poolContract,
+            error,
+          }
         }
-
-        return {
-          pool,
-          estimatedAmountOut,
-          poolContract
-        }
-        
       })
     )
 
+    console.log({ quoteFromPoolList })
+
     // Sort the pool by best output
-    const estimatedAmountOutPerPoolSorted = estimatedAmountOutPerPool.filter(pool => pool.estimatedAmountOut.gt(0)) .sort((poolA, poolB) =>
-      poolA.estimatedAmountOut .gt(poolB.estimatedAmountOut
-        )
-        ? -1
-        : poolA.estimatedAmountOut .eq(poolB.estimatedAmountOut)
-        ? 0
-        : 1
-    )
+    const estimatedAmountOutPerPoolSorted = quoteFromPoolList
+      .filter((pool) => {
+        return pool.estimatedAmountOut.gt(0) && pool.error == undefined
+      })
+      .sort((poolA, poolB) =>
+        poolA.estimatedAmountOut.gt(poolB.estimatedAmountOut)
+          ? -1
+          : poolA.estimatedAmountOut.eq(poolB.estimatedAmountOut)
+          ? 0
+          : 1
+      )
 
     if (estimatedAmountOutPerPoolSorted.length === 0) {
-      throw new Error('CurveTrade: no pools found returned an quote')
+      throw new Error('CurveTrade: zero pools returned an quote')
     }
 
     // Select the best (first) pool
