@@ -3,6 +3,7 @@ import STAKING_REWARDS_FACTORY_ABI from './abis/staking-rewards-distribution-fac
 import STAKING_REWARDS_DISTRIBUTION_ABI from './abis/staking-rewards-distribution.json';
 import SWPR_CLAIMER_ABI from './abis/swpr-claimer.json';
 import MULTICALL_ABI from './abis/multicall.json';
+import MULTICALL2_ABI from './abis/multicall2.json';
 export declare type BigintIsh = JSBI | bigint | string;
 export declare enum ChainId {
     MAINNET = 1,
@@ -64,4 +65,7 @@ export declare const SOLIDITY_TYPE_MAXIMA: {
 declare const MULTICALL_ADDRESS: {
     [chainId in ChainId]: string;
 };
-export { MULTICALL_ABI, MULTICALL_ADDRESS, STAKING_REWARDS_FACTORY_ABI, STAKING_REWARDS_DISTRIBUTION_ABI, SWPR_CLAIMER_ABI };
+declare const MULTICALL2_ADDRESS: {
+    [chainId in ChainId]: string;
+};
+export { MULTICALL_ABI, MULTICALL2_ABI, MULTICALL_ADDRESS, MULTICALL2_ADDRESS, STAKING_REWARDS_FACTORY_ABI, STAKING_REWARDS_DISTRIBUTION_ABI, SWPR_CLAIMER_ABI, };
