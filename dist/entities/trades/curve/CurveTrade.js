@@ -22,7 +22,7 @@ const utils_1 = require("../../../utils");
 const contracts_2 = require("./contracts");
 const utils_2 = require("./utils");
 const utils_3 = require("../utils");
-const utils_4 = require("./contracts/utils");
+const utils_4 = require("../utils");
 const pools_1 = require("./pools");
 /**
  * Represents a trade executed against a list of pairs.
@@ -82,9 +82,8 @@ class CurveTrade extends trade_1.Trade {
             return this.inputAmount;
         }
         else {
-            const slippageAdjustedAmountIn = new fraction_1.Fraction(constants_1.ONE)
-                .add(this.maximumSlippage)
-                .multiply(this.inputAmount.raw).quotient;
+            const slippageAdjustedAmountIn = new fraction_1.Fraction(constants_1.ONE).add(this.maximumSlippage).multiply(this.inputAmount.raw)
+                .quotient;
             return this.inputAmount instanceof tokenAmount_1.TokenAmount
                 ? new tokenAmount_1.TokenAmount(this.inputAmount.token, slippageAdjustedAmountIn)
                 : currencyAmount_1.CurrencyAmount.nativeCurrency(slippageAdjustedAmountIn, this.chainId);

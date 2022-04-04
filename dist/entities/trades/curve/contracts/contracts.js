@@ -8,7 +8,7 @@ const constants_2 = require("../../../../constants");
 const tokens_1 = require("../tokens");
 // ABIs: trimmed for bundle size
 const abi_1 = require("../abi");
-const utils_1 = require("./utils");
+const utils_1 = require("../../utils");
 // Constants
 exports.MAINNET_CONTRACTS = {
     addressProvider: '0x0000000022d53366457f9d5e68ec105046fc4383',

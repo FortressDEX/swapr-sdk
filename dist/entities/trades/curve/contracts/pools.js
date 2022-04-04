@@ -4,7 +4,7 @@ exports.getPoolTokenList = void 0;
 const tslib_1 = require("tslib");
 const contracts_1 = require("@ethersproject/contracts");
 const common_1 = require("../abi/common");
-const utils_1 = require("./utils");
+const utils_1 = require("../../utils");
 const getPoolTokenListCache = new Map();
 /**
  * Fetches and returns tokens from given pool address
