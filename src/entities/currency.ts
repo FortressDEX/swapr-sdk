@@ -30,6 +30,8 @@ export class Currency {
   private static readonly NATIVE_CURRENCY: { [chainId in ChainId]: Currency } = {
     [ChainId.MAINNET]: Currency.ETHER,
     [ChainId.RINKEBY]: Currency.ETHER,
+    [ChainId.OPTIMISM]: Currency.ETHER,
+    [ChainId.OPTIMISM_KOVAN]: Currency.ETHER, //Not sure about this. There is a reference to a KOR test token...
     [ChainId.ARBITRUM_ONE]: Currency.ETHER,
     [ChainId.ARBITRUM_RINKEBY]: Currency.ETHER,
     [ChainId.XDAI]: Currency.XDAI,

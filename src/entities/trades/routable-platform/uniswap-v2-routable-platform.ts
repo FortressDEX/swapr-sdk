@@ -55,6 +55,7 @@ export class UniswapV2RoutablePlatform extends RoutablePlatform {
   public readonly initCodeHash: string
   public readonly defaultSwapFee: BigintIsh
 
+  //WARNING: We need some place for Uniswap V3
   public static readonly SWAPR = new UniswapV2RoutablePlatform({
     chainIds: [ChainId.MAINNET, ChainId.RINKEBY, ChainId.ARBITRUM_ONE, ChainId.ARBITRUM_RINKEBY, ChainId.XDAI],
     name: 'Swapr',

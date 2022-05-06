@@ -16,6 +16,14 @@ const MINIMUM_STAKED_AMOUNT_NATIVE_CURRENCY: { [chainId in ChainId]: CurrencyAmo
     utils.parseUnits('0.1', Token.getNative(ChainId.MAINNET).decimals).toString(),
     ChainId.MAINNET
   ),
+  [ChainId.OPTIMISM]: CurrencyAmount.nativeCurrency(
+    utils.parseUnits('0', Token.getNative(ChainId.OPTIMISM).decimals).toString(),
+    ChainId.OPTIMISM
+  ),
+  [ChainId.OPTIMISM_KOVAN]: CurrencyAmount.nativeCurrency(
+    utils.parseUnits('0', Token.getNative(ChainId.OPTIMISM_KOVAN).decimals).toString(),
+    ChainId.OPTIMISM_KOVAN
+  ),
   [ChainId.XDAI]: CurrencyAmount.nativeCurrency(
     utils.parseUnits('1000', Token.getNative(ChainId.XDAI).decimals).toString(),
     ChainId.XDAI
@@ -28,7 +36,10 @@ const MINIMUM_STAKED_AMOUNT_NATIVE_CURRENCY: { [chainId in ChainId]: CurrencyAmo
     utils.parseUnits('0.05', Token.getNative(ChainId.ARBITRUM_RINKEBY).decimals).toString(),
     ChainId.ARBITRUM_RINKEBY
   ),
-  [ChainId.POLYGON]: CurrencyAmount.nativeCurrency(utils.parseUnits('0', Token.getNative(ChainId.POLYGON).decimals).toString(), ChainId.POLYGON)
+  [ChainId.POLYGON]: CurrencyAmount.nativeCurrency(
+    utils.parseUnits('0', Token.getNative(ChainId.POLYGON).decimals).toString(),
+    ChainId.POLYGON
+  ),
 }
 
 export interface DistributionCampaignBaseConstructoParams {

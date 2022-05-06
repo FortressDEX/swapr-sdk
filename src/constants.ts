@@ -24,6 +24,8 @@ export type BigintIsh = JSBI | bigint | string
 export enum ChainId {
   MAINNET = 1,
   RINKEBY = 4,
+  OPTIMISM = 10,
+  OPTIMISM_KOVAN = 69,
   XDAI = 100,
   POLYGON = 137,
   ARBITRUM_ONE = 42161,
@@ -43,9 +45,12 @@ export enum Rounding {
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
+//WARNING: set Optimism all address to zero address until we have that data
 export const FACTORY_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: coreMainnet.factory,
   [ChainId.RINKEBY]: coreRinkeby.factory,
+  [ChainId.OPTIMISM]: ZERO_ADDRESS,
+  [ChainId.OPTIMISM_KOVAN]: ZERO_ADDRESS,
   [ChainId.ARBITRUM_ONE]: coreArbitrumOne.factory,
   [ChainId.ARBITRUM_RINKEBY]: coreArbitrumRinkebyTestnet.factory,
   [ChainId.XDAI]: coreXDai.factory,
@@ -55,6 +60,8 @@ export const FACTORY_ADDRESS: { [chainId in ChainId]: string } = {
 export const ROUTER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.RINKEBY]: peripheryRinkeby.router,
   [ChainId.MAINNET]: peripheryMainnet.router,
+  [ChainId.OPTIMISM]: ZERO_ADDRESS,
+  [ChainId.OPTIMISM_KOVAN]: ZERO_ADDRESS,
   [ChainId.XDAI]: peripheryXDai.router,
   [ChainId.ARBITRUM_ONE]: peripheryArbitrumOne.router,
   [ChainId.ARBITRUM_RINKEBY]: peripheryArbitrumRinkebyTestnet.router,
@@ -64,6 +71,8 @@ export const ROUTER_ADDRESS: { [chainId in ChainId]: string } = {
 export const STAKING_REWARDS_FACTORY_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0x156F0568a6cE827e5d39F6768A5D24B694e1EA7b',
   [ChainId.RINKEBY]: '0x0f9E49d473B813abe33F1BAB11fa9E16eE850EBa',
+  [ChainId.OPTIMISM]: ZERO_ADDRESS,
+  [ChainId.OPTIMISM_KOVAN]: ZERO_ADDRESS,
   [ChainId.XDAI]: '0xa039793Af0bb060c597362E8155a0327d9b8BEE8',
   [ChainId.ARBITRUM_ONE]: '0xecA7F78d59D16812948849663b26FE10E320f80C',
   [ChainId.ARBITRUM_RINKEBY]: '0x41e657cAdE74f45b7E2F0F4a5AeE0239f2fB4E1F',
@@ -73,6 +82,8 @@ export const STAKING_REWARDS_FACTORY_ADDRESS: { [chainId in ChainId]: string } =
 export const SWPR_CLAIMER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: ZERO_ADDRESS,
   [ChainId.RINKEBY]: '0x6D525E4115d339aD4e336bCF4C85A1Fb8f4a594C',
+  [ChainId.OPTIMISM]: ZERO_ADDRESS,
+  [ChainId.OPTIMISM_KOVAN]: ZERO_ADDRESS,
   [ChainId.ARBITRUM_RINKEBY]: '0x99583f330814E04de96C0288FBF82B5E35A009dc',
   [ChainId.ARBITRUM_ONE]: '0xe54942077Df7b8EEf8D4e6bCe2f7B58B0082b0cd',
   [ChainId.XDAI]: ZERO_ADDRESS,
@@ -83,6 +94,8 @@ export const SWPR_CLAIMER_ADDRESS: { [chainId in ChainId]: string } = {
 export const SWPR_CONVERTER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: ZERO_ADDRESS,
   [ChainId.RINKEBY]: ZERO_ADDRESS,
+  [ChainId.OPTIMISM]: ZERO_ADDRESS,
+  [ChainId.OPTIMISM_KOVAN]: ZERO_ADDRESS,
   [ChainId.ARBITRUM_RINKEBY]: ZERO_ADDRESS,
   [ChainId.ARBITRUM_ONE]: '0x2b058af96175A847Bf3E5457B3A702F807daDdFd',
   [ChainId.XDAI]: ZERO_ADDRESS,
@@ -125,6 +138,8 @@ export const SOLIDITY_TYPE_MAXIMA = {
 const MULTICALL2_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0x5ba1e12693dc8f9c48aad8770482f4739beed696',
   [ChainId.RINKEBY]: '0x5ba1e12693dc8f9c48aad8770482f4739beed696',
+  [ChainId.OPTIMISM]: ZERO_ADDRESS,
+  [ChainId.OPTIMISM_KOVAN]: ZERO_ADDRESS,
   [ChainId.ARBITRUM_ONE]: '0x80c7dd17b01855a6d2347444a0fcc36136a314de',
   [ChainId.XDAI]: '0xFAa296891cA6CECAF2D86eF5F7590316d0A17dA0',
   [ChainId.ARBITRUM_RINKEBY]: '0x309e61A4c36a4a9f131f8844eA521F6384B6C9E3',

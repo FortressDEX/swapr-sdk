@@ -505,7 +505,9 @@ export const CURVE_POOLS: { [chainId in ChainId]: CurvePool[] } = {
   [ChainId.XDAI]: POOLS_XDAI,
   [ChainId.ARBITRUM_ONE]: POOLS_ARBITRUM_ONE,
   // Empty
+  [ChainId.OPTIMISM]: [],
+  [ChainId.OPTIMISM_KOVAN]: [],
   [ChainId.RINKEBY]: [],
   [ChainId.ARBITRUM_RINKEBY]: [],
-  [ChainId.POLYGON]: []
+  [ChainId.POLYGON]: [],
 }

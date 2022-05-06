@@ -48,3 +48,5 @@ Swapr uses multiple trades to find best protocol and route for traders. Currentl
 | DFYN         |          |              |              | ✅      |
 
 The `Trade` class is extendable. New DEXs can be added to the SDK by extending the `Trade` and adding required methods.
+
+### SIDE NOTE: This branch started implementation to include Optimism dex a good [PR to follow](https://github.com/levelkdev/swapr-sdk/pull/75/files)

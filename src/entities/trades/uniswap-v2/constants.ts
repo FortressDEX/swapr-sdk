@@ -107,6 +107,8 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     USDT[ChainId.MAINNET],
   ],
   [ChainId.RINKEBY]: [WETH[ChainId.RINKEBY]],
+  [ChainId.OPTIMISM]: [],
+  [ChainId.OPTIMISM_KOVAN]: [],
   [ChainId.ARBITRUM_ONE]: [
     WETH[ChainId.ARBITRUM_ONE],
     DXD[ChainId.ARBITRUM_ONE],

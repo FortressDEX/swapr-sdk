@@ -25,6 +25,21 @@ export class Token extends Currency {
       'WETH',
       'Wrapped Ether'
     ),
+    //WARNING ADDRESSES MISSING
+    [ChainId.OPTIMISM]: new Token(
+      ChainId.OPTIMISM,
+      '',
+      18,
+      'WETH',
+      'Wrapped Ether on Optimism'
+    ),
+    [ChainId.OPTIMISM_KOVAN]: new Token(
+      ChainId.OPTIMISM_KOVAN,
+      '',
+      18,
+      'WETH',
+      'Wrapped Ether on Optimism Kovan'
+    ),
     [ChainId.ARBITRUM_ONE]: new Token(
       ChainId.ARBITRUM_ONE,
       '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
@@ -46,7 +61,13 @@ export class Token extends Currency {
       'WETH',
       'Wrapped Ether on xDai'
     ),
-    [ChainId.POLYGON]: new Token(ChainId.POLYGON, '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619', 18, 'WETH', 'Wrapped Ether on Polygon')
+    [ChainId.POLYGON]: new Token(
+      ChainId.POLYGON,
+      '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
+      18,
+      'WETH',
+      'Wrapped Ether on Polygon'
+    ),
   }
 
   public static readonly WXDAI: { [key: number]: Token } = {
@@ -106,6 +127,8 @@ export class Token extends Currency {
   private static readonly NATIVE_CURRENCY_WRAPPER: { [chainId in ChainId]: Token } = {
     [ChainId.MAINNET]: Token.WETH[ChainId.MAINNET],
     [ChainId.RINKEBY]: Token.WETH[ChainId.RINKEBY],
+    [ChainId.OPTIMISM]: Token.WETH[ChainId.OPTIMISM],
+    [ChainId.OPTIMISM_KOVAN]: Token.WETH[ChainId.OPTIMISM_KOVAN],
     [ChainId.ARBITRUM_ONE]: Token.WETH[ChainId.ARBITRUM_ONE],
     [ChainId.ARBITRUM_RINKEBY]: Token.WETH[ChainId.ARBITRUM_RINKEBY],
     [ChainId.XDAI]: Token.WXDAI[ChainId.XDAI],
