@@ -27,6 +27,7 @@ const INITIAL_CACHE_STATE: { [chainId in ChainId]: any } = {
   [ChainId.ARBITRUM_ONE]: {},
   [ChainId.ARBITRUM_RINKEBY]: {},
   [ChainId.XDAI]: {},
+  [ChainId.CANDLE]: {},
   [ChainId.POLYGON]: {},
 }
 

@@ -54,11 +54,23 @@ export class Token extends Currency {
       'WETH',
       'Wrapped Ether on Polygon'
     ),
+    [ChainId.CANDLE]: new Token(
+      ChainId.CANDLE,
+      '0xb750990F953B36F806d0327678eCFB4eEFd16979',
+      18,
+      'WETH',
+      'Wrapped Ether on Candle'
+    ),
   }
 
   public static readonly WXDAI: { [key: number]: Token } = {
     [ChainId.XDAI]: new Token(ChainId.XDAI, '0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d', 18, 'WXDAI', 'Wrapped xDAI'),
   }
+
+  public static readonly WCNDL: { [key: number]: Token } = {
+    [ChainId.CANDLE]: new Token(ChainId.CANDLE, '0x85FA00f55492B0437b3925381fAaf0E024747627', 18, 'WCNDL', 'Wrapped Candle'),
+  }
+
 
   public static readonly WMATIC: { [key: number]: Token } = {
     [ChainId.POLYGON]: new Token(

@@ -26,6 +26,7 @@ export class Currency {
   )
   public static readonly XDAI: Currency = new Currency(18, 'XDAI', 'xDAI')
   public static readonly MATIC: Currency = new Currency(18, 'MATIC', 'Matic')
+  public static readonly CANDLE: Currency = new Currency(18, 'CANDLE', 'CANDLE')
 
   private static readonly NATIVE_CURRENCY: { [chainId in ChainId]: Currency } = {
     [ChainId.MAINNET]: Currency.ETHER,
@@ -65,3 +66,4 @@ export const USD = Currency.USD
 export const ETHER = Currency.ETHER
 export const XDAI = Currency.XDAI
 export const MATIC = Currency.MATIC
+export const CANDLE = Currency.CANDLE
