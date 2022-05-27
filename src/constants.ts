@@ -27,6 +27,7 @@ export enum ChainId {
   RINKEBY = 4,
   XDAI = 100,
   POLYGON = 137,
+  CANDLE = 534,
   ARBITRUM_ONE = 42161,
   ARBITRUM_RINKEBY = 421611,
 }
@@ -50,6 +51,7 @@ export const FACTORY_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.ARBITRUM_ONE]: coreArbitrumOne.factory,
   [ChainId.ARBITRUM_RINKEBY]: coreArbitrumRinkebyTestnet.factory,
   [ChainId.XDAI]: coreXDai.factory,
+  [ChainId.CANDLE]: coreCandle.factory,
   [ChainId.POLYGON]: ZERO_ADDRESS,
 }
 
@@ -57,6 +59,7 @@ export const ROUTER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.RINKEBY]: peripheryRinkeby.router,
   [ChainId.MAINNET]: peripheryMainnet.router,
   [ChainId.XDAI]: peripheryXDai.router,
+  [ChainId.CANDLE]: peripheryCandle.router,
   [ChainId.ARBITRUM_ONE]: peripheryArbitrumOne.router,
   [ChainId.ARBITRUM_RINKEBY]: peripheryArbitrumRinkebyTestnet.router,
   [ChainId.POLYGON]: ZERO_ADDRESS,
@@ -66,6 +69,7 @@ export const STAKING_REWARDS_FACTORY_ADDRESS: { [chainId in ChainId]: string } =
   [ChainId.MAINNET]: '0x156F0568a6cE827e5d39F6768A5D24B694e1EA7b',
   [ChainId.RINKEBY]: '0x0f9E49d473B813abe33F1BAB11fa9E16eE850EBa',
   [ChainId.XDAI]: '0xa039793Af0bb060c597362E8155a0327d9b8BEE8',
+  [ChainId.CANDLE]: '0xa039793Af0bb060c597362E8155a0327d9b8BEE8', // change this
   [ChainId.ARBITRUM_ONE]: '0xecA7F78d59D16812948849663b26FE10E320f80C',
   [ChainId.ARBITRUM_RINKEBY]: '0x41e657cAdE74f45b7E2F0F4a5AeE0239f2fB4E1F',
   [ChainId.POLYGON]: ZERO_ADDRESS,
@@ -77,6 +81,7 @@ export const SWPR_CLAIMER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.ARBITRUM_RINKEBY]: '0x99583f330814E04de96C0288FBF82B5E35A009dc',
   [ChainId.ARBITRUM_ONE]: '0xe54942077Df7b8EEf8D4e6bCe2f7B58B0082b0cd',
   [ChainId.XDAI]: ZERO_ADDRESS,
+  [ChainId.CANDLE]: ZERO_ADDRESS, // change this
   [ChainId.POLYGON]: ZERO_ADDRESS,
 }
 
@@ -87,6 +92,7 @@ export const SWPR_CONVERTER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.ARBITRUM_RINKEBY]: ZERO_ADDRESS,
   [ChainId.ARBITRUM_ONE]: '0x2b058af96175A847Bf3E5457B3A702F807daDdFd',
   [ChainId.XDAI]: ZERO_ADDRESS,
+  [ChainId.CANDLE]: ZERO_ADDRESS, // change this
   [ChainId.POLYGON]: ZERO_ADDRESS,
 }
 
@@ -128,6 +134,7 @@ const MULTICALL2_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.RINKEBY]: '0x5ba1e12693dc8f9c48aad8770482f4739beed696',
   [ChainId.ARBITRUM_ONE]: '0x80c7dd17b01855a6d2347444a0fcc36136a314de',
   [ChainId.XDAI]: '0xFAa296891cA6CECAF2D86eF5F7590316d0A17dA0',
+  [ChainId.CANDLE]: '0xFAa296891cA6CECAF2D86eF5F7590316d0A17dA0', // change this
   [ChainId.ARBITRUM_RINKEBY]: '0x309e61A4c36a4a9f131f8844eA521F6384B6C9E3',
   [ChainId.POLYGON]: '0x275617327c958bD06b5D6b871E7f491D76113dd8',
 }
