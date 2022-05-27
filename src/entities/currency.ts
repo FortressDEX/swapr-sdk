@@ -34,6 +34,7 @@ export class Currency {
     [ChainId.ARBITRUM_ONE]: Currency.ETHER,
     [ChainId.ARBITRUM_RINKEBY]: Currency.ETHER,
     [ChainId.XDAI]: Currency.XDAI,
+    [ChainId.CANDLE]: Currency.CANDLE,
     [ChainId.POLYGON]: Currency.MATIC,
   }
 

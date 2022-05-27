@@ -197,3 +197,4 @@ export const DXD = Token.DXD
 export const WXDAI = Token.WXDAI
 export const SWPR = Token.SWPR
 export const WMATIC = Token.WMATIC
+export const WCNDL = Token.WCNDL
